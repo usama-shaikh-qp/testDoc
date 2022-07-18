@@ -1,0 +1,973 @@
+definitions:
+  DTO.BillingAddressData:
+    properties:
+      billing_address1:
+        type: string
+      billing_address2:
+        type: string
+      billing_city:
+        type: string
+      billing_state:
+        type: string
+      billing_zip:
+        type: string
+    type: object
+  DTO.BillingInfo:
+    properties:
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      name:
+        type: string
+      state:
+        type: string
+      zip:
+        type: string
+    required:
+    - address1
+    - address2
+    - city
+    - country
+    - state
+    - zip
+    type: object
+  DTO.CallBackResponse:
+    properties:
+      redirect_url:
+        type: string
+    type: object
+  DTO.CancelOrder:
+    properties:
+      store_url:
+        type: string
+      tracking_id:
+        type: string
+    required:
+    - store_url
+    - tracking_id
+    type: object
+  DTO.CancelOrderResponse:
+    properties:
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  DTO.CurrentOrderDetail:
+    properties:
+      call_back_url:
+        type: string
+      cart_items:
+        items:
+          $ref: '#/definitions/DTO.OrderItems'
+        type: array
+      created_at:
+        type: string
+      created_by:
+        type: integer
+      currency:
+        type: string
+      fee:
+        type: number
+      foreign_amount:
+        type: number
+      is_tez:
+        type: integer
+      merchant_order_id:
+        type: string
+      merchant_user_id:
+        type: integer
+      notification_url:
+        type: string
+      one_click_fee:
+        type: number
+      order_amount:
+        type: number
+      order_id:
+        type: integer
+      order_number:
+        type: string
+      order_status:
+        type: string
+      redirect_url:
+        type: string
+      refund_amount:
+        type: string
+      refund_reason:
+        type: string
+      remaining_installment_amount:
+        type: number
+      retailer_id:
+        type: integer
+      shipping_amount:
+        type: integer
+      store_type:
+        type: string
+      tax_amount:
+        type: number
+      tracking_id:
+        type: string
+      transaction_datetime:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  DTO.CustomerCardDetail:
+    properties:
+      card_expiry_date:
+        type: string
+      card_holder_name:
+        type: string
+      card_id: {}
+      card_number:
+        type: string
+      card_type:
+        type: string
+      created_at:
+        type: string
+      currency:
+        type: string
+      stripe_card_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  DTO.CustomerDetails:
+    properties:
+      address1:
+        type: string
+      address2:
+        type: string
+      billing_address:
+        $ref: '#/definitions/DTO.BillingAddressData'
+      card_details:
+        $ref: '#/definitions/DTO.CustomerCardDetail'
+      city:
+        type: string
+      country:
+        type: string
+      created_at:
+        type: string
+      dob:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: string
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      phone_number:
+        type: string
+      shipping_address:
+        $ref: '#/definitions/DTO.ShippingAddressData'
+      state: {}
+      status:
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+      zip: {}
+    type: object
+  DTO.Encryption:
+    properties:
+      plain_text:
+        type: string
+    required:
+    - plain_text
+    type: object
+  DTO.EncryptionResponse:
+    properties:
+      encrypted_key:
+        type: string
+    type: object
+  DTO.InstalmentRequest:
+    properties:
+      number_of_installment:
+        type: number
+      order_id:
+        type: integer
+    required:
+    - number_of_installment
+    - order_id
+    type: object
+  DTO.LineItem:
+    properties:
+      amount: {}
+      attributes:
+        items:
+          additionalProperties: true
+          type: object
+        type: array
+      brand:
+        type: string
+      category:
+        type: integer
+      color:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      quantity:
+        minimum: 1
+        type: integer
+      shipping_attributes:
+        properties:
+          dimensions:
+            properties:
+              Width:
+                type: string
+              height:
+                type: string
+              length:
+                type: string
+            required:
+            - Width
+            - height
+            - length
+            type: object
+          weight:
+            type: string
+        required:
+        - dimensions
+        type: object
+      size:
+        type: string
+      sku:
+        type: string
+      src:
+        type: string
+      sub_category:
+        type: string
+      tax_rate:
+        type: integer
+      total_discount_amount:
+        type: integer
+      total_tax_amount:
+        type: integer
+      type:
+        type: string
+      unit_price: {}
+    required:
+    - amount
+    - attributes
+    - id
+    - name
+    - quantity
+    - shipping_attributes
+    - sku
+    - src
+    - tax_rate
+    - total_discount_amount
+    - total_tax_amount
+    - type
+    - unit_price
+    type: object
+  DTO.MerchantOrdersRequest:
+    properties:
+      limit:
+        type: integer
+      merchantUserId:
+        type: integer
+      page:
+        type: integer
+      sort:
+        type: string
+    required:
+    - merchantUserId
+    type: object
+  DTO.MerchantOrdersResponse:
+    properties:
+      message:
+        type: string
+      orders:
+        items:
+          $ref: '#/definitions/DTO.OrderData'
+        type: array
+      success:
+        type: boolean
+      total_orders:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  DTO.OTP:
+    properties:
+      bank_id:
+        type: string
+      gateway:
+        type: string
+      order_id: {}
+      otp:
+        type: string
+    type: object
+  DTO.OTPResp:
+    properties:
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  DTO.Order:
+    properties:
+      account_number:
+        type: string
+      bank_id:
+        type: string
+      bank_name:
+        type: string
+      billing_info:
+        $ref: '#/definitions/DTO.BillingInfo'
+      call_back_url:
+        type: string
+      card_holder_name:
+        type: string
+      card_number:
+        type: string
+      checkout_url:
+        type: string
+      cnic:
+        type: string
+      coupon_code:
+        type: string
+      currency:
+        type: string
+      cvv:
+        type: string
+      discounted_amount:
+        type: number
+      expiry_month:
+        type: string
+      expiry_year:
+        type: string
+      is_guest:
+        type: boolean
+      is_tez:
+        type: integer
+      line_items:
+        items:
+          $ref: '#/definitions/DTO.LineItem'
+        type: array
+      merchant_order_id:
+        type: string
+      merchant_package_id:
+        type: integer
+      merchant_request:
+        type: string
+      nonce:
+        type: string
+      otp:
+        type: string
+      package_name:
+        type: string
+      payment_token:
+        type: string
+      quantity:
+        minimum: 1
+        type: integer
+      query_string:
+        type: string
+      redirect_url:
+        type: string
+      retry:
+        type: boolean
+      segmentId:
+        type: string
+      shipping_amount:
+        type: number
+      shipping_info:
+        $ref: '#/definitions/DTO.ShippingInfo'
+      shipping_methods:
+        items:
+          $ref: '#/definitions/DTO.ShippingMethods'
+        type: array
+      shipping_title:
+        type: string
+      source:
+        type: string
+      store_type:
+        type: string
+      store_url:
+        type: string
+      tax_amount:
+        type: number
+      tokenized_card:
+        type: boolean
+      total_amount:
+        type: number
+      tracking_id:
+        type: string
+      transaction_id:
+        type: string
+      user:
+        $ref: '#/definitions/DTO.User'
+    required:
+    - billing_info
+    - card_holder_name
+    - card_number
+    - currency
+    - cvv
+    - expiry_month
+    - expiry_year
+    - line_items
+    - merchant_package_id
+    - package_name
+    - quantity
+    - shipping_amount
+    - shipping_info
+    - shipping_methods
+    - shipping_title
+    - total_amount
+    type: object
+  DTO.OrderData:
+    properties:
+      amount:
+        type: number
+      customer_email:
+        type: string
+      customer_name:
+        type: string
+      date:
+        type: string
+      fee:
+        type: number
+      merchant_order_id:
+        type: string
+      merchant_reference_id:
+        type: string
+      order_id:
+        type: integer
+      payment_method:
+        type: string
+      status:
+        type: string
+      store:
+        type: string
+    type: object
+  DTO.OrderDetail:
+    properties:
+      tracking_id:
+        type: string
+    required:
+    - tracking_id
+    type: object
+  DTO.OrderDetailsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/DTO.OrderDetailsResponseData'
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  DTO.OrderDetailsResponseData:
+    properties:
+      current_order_detail:
+        $ref: '#/definitions/DTO.CurrentOrderDetail'
+      customer_details:
+        $ref: '#/definitions/DTO.CustomerDetails'
+    type: object
+  DTO.OrderItems:
+    properties:
+      amount:
+        type: integer
+      brand:
+        type: string
+      cart_id:
+        type: integer
+      category:
+        type: integer
+      color:
+        type: string
+      description:
+        type: string
+      height:
+        type: string
+      id:
+        type: integer
+      image_url:
+        type: string
+      length:
+        type: string
+      name:
+        type: string
+      product_url:
+        type: string
+      quantity:
+        type: integer
+      reference:
+        type: string
+      size:
+        type: string
+      sku:
+        type: string
+      type:
+        type: string
+      unit_price:
+        type: integer
+      weight:
+        type: string
+      width:
+        type: string
+    type: object
+  DTO.OrderRemainingTime:
+    properties:
+      tracking_id:
+        type: string
+    required:
+    - tracking_id
+    type: object
+  DTO.OrderRemainingTimeResponse:
+    properties:
+      remaining_time:
+        type: integer
+    type: object
+  DTO.OrderRequestLogResp:
+    properties:
+      data:
+        additionalProperties: true
+        type: object
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  DTO.OrderResponse:
+    properties:
+      data:
+        additionalProperties: true
+        type: object
+      errors:
+        additionalProperties: true
+        type: object
+      message:
+        type: string
+      showModal:
+        type: boolean
+      success:
+        type: boolean
+    type: object
+  DTO.RootRequestOrder:
+    properties:
+      billNumber:
+        type: string
+    required:
+    - billNumber
+    type: object
+  DTO.ShippingAddressData:
+    properties:
+      shipping_address1:
+        type: string
+      shipping_address2:
+        type: string
+      shipping_city:
+        type: string
+      shipping_state:
+        type: string
+      shipping_zip:
+        type: string
+    type: object
+  DTO.ShippingInfo:
+    properties:
+      address1:
+        type: string
+      address2:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      phone:
+        type: string
+      state:
+        type: string
+      zip:
+        type: string
+    required:
+    - address1
+    - address2
+    - city
+    - country
+    - state
+    - zip
+    type: object
+  DTO.ShippingMethods:
+    properties:
+      cost: {}
+      title:
+        type: string
+    required:
+    - cost
+    - title
+    type: object
+  DTO.ShowDiscountRequest:
+    properties:
+      coupon_code:
+        type: string
+      total_price:
+        type: string
+    required:
+    - coupon_code
+    - total_price
+    type: object
+  DTO.ShowDiscountResponse:
+    properties:
+      coupon_code:
+        type: string
+      discount_value:
+        type: number
+      discounted_amount:
+        type: string
+      ends_at: {}
+      total_price:
+        type: string
+      type:
+        type: string
+    type: object
+  DTO.User:
+    properties:
+      address:
+        type: string
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phone_number:
+        type: string
+      zip:
+        type: string
+    type: object
+  DTO.WebhookResponse:
+    properties:
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: Order microservice.
+  title: Order Service
+paths:
+  /order-service/call_back:
+    get:
+      consumes:
+      - application/json
+      description: this endpoint check the order details and payment status etc and
+        returns the call back url to redirect
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.CallBackResponse'
+      summary: it returns the call back url
+      tags:
+      - order
+  /order-service/cancel_order:
+    post:
+      consumes:
+      - application/json
+      description: cancel order which is placed on the store
+      parameters:
+      - description: cancel order
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.CancelOrder'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.CancelOrderResponse'
+      summary: Cancel order
+      tags:
+      - order
+  /order-service/custom_order_info:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: create order
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.RootRequestOrder'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderResponse'
+      summary: get Roots bill number info from roots server
+      tags:
+      - order
+  /order-service/encrypt_key:
+    post:
+      consumes:
+      - application/json
+      description: this endpoint encrypts the requested identity token string into
+        cipher text
+      parameters:
+      - description: encrypts string into cipher text
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.Encryption'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.EncryptionResponse'
+      summary: Encrypts the requested string
+      tags:
+      - order
+  /order-service/merchant_orders:
+    get:
+      consumes:
+      - application/json
+      description: get the list of all order of a specifit merchant against its id
+      parameters:
+      - description: merchant id
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.MerchantOrdersRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.MerchantOrdersResponse'
+      summary: Get all orders of a merchant
+      tags:
+      - order
+  /order-service/order_details:
+    get:
+      consumes:
+      - application/json
+      description: get order details which is place on the store by tracking_id
+      parameters:
+      - description: get order details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.OrderDetail'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderDetailsResponse'
+      summary: Get order details
+      tags:
+      - order
+  /order-service/order_remaining_time:
+    get:
+      consumes:
+      - application/json
+      description: get order remaining time to cancel the order which is place on
+        the store by tracking_id
+      parameters:
+      - description: gets order remaining time
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.OrderRemainingTime'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderRemainingTimeResponse'
+      summary: Gets order remaining time to cancel
+      tags:
+      - order
+  /order-service/order_request_log:
+    get:
+      consumes:
+      - application/json
+      description: order requestlog get request logs from DB.
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderRequestLogResp'
+      summary: Order RequestLog
+      tags:
+      - order
+  /order-service/payall:
+    post:
+      consumes:
+      - application/json
+      description: this endpoint call by for pay all installments working
+      parameters:
+      - description: call payment gateway for status
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.InstalmentRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderResponse'
+      summary: Make the internal payment gateways call and get the status of payment
+      tags:
+      - order
+  /order-service/paynth:
+    post:
+      consumes:
+      - application/json
+      description: this endpoint call by for pay nth installment working
+      parameters:
+      - description: call payment gateway for status
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.InstalmentRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderResponse'
+      summary: Make the internal payment gateways call and get the status of payment
+      tags:
+      - order
+  /order-service/place_custom_order:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: create order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.Order'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderResponse'
+      summary: Create order
+      tags:
+      - order
+  /order-service/place_order:
+    post:
+      consumes:
+      - application/json
+      description: create order which is place on the store
+      parameters:
+      - description: create order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.Order'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OrderResponse'
+      summary: Create order
+      tags:
+      - order
+  /order-service/send_otp:
+    post:
+      consumes:
+      - application/json
+      description: it sends otp for confirm otp
+      parameters:
+      - description: send otp
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.OTP'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.OTPResp'
+      summary: Send OTP For confirm OTP
+      tags:
+      - order
+  /order-service/show_discount:
+    post:
+      consumes:
+      - application/json
+      description: get coupon code details that whether it exists or not and its value
+        amount
+      parameters:
+      - description: get coupon code details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.ShowDiscountRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.ShowDiscountResponse'
+      summary: Get coupon code details
+      tags:
+      - order
+  /order-service/webhook/{paymentprocessor}:
+    post:
+      consumes:
+      - application/json
+      description: this endpoint call by payment gateway internally to make sure the
+        payment status
+      parameters:
+      - description: call payment gateway for status
+        in: body
+        name: user
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/DTO.WebhookResponse'
+      summary: Make the internal payment gateways call and get the status of payment
+      tags:
+      - order
+schemes:
+- http
+- https
+swagger: "2.0"
